@@ -17,3 +17,8 @@ rails g scaffold Book name:text description:text pages:integer
 ```
 rails g scaffold UserBook user:references book:references
 ```
+
+หลังจากนั้น Migrate ดู ถ้ามีปัญหาให้ดูว่าพิมพ์อะไรผิดหรือไม่
+```
+rails db:migrate
+```
