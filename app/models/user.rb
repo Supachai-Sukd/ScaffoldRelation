@@ -2,6 +2,10 @@ class User < ApplicationRecord
     has_many :user_books
     has_many :books, through: :user_books
 
+    def send_welcome_email
+        UserMailer.with(user_id: self.id).welcome_email.deliver_now
+    end
+
     def as_detail_json
         json = self.as_json
         json[:user_books] = self.user_books.includes(:book).map{|ub| ub.as_book_json}
