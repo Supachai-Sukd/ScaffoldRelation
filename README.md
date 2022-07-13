@@ -22,3 +22,42 @@ rails g scaffold UserBook user:references book:references
 ```
 rails db:migrate
 ```
+
+มีแก้ Model ด้วยไปดูใน Model
+
+มา Create user กัน
+```
+u1 = User.create(title: 'Mr', first_name: 'Supachai', last_name: 'Sukduang')
+u2 = User.create(title: 'Mrs', first_name: 'Usanee', last_name: 'Sukduang')
+```
+
+มาสร้าง Book
+```
+b1 = Book.create(name: 'Learn Ruby', description: 'Learn Ruby for God', pages: 999)
+b2 = Book.create(name: 'Learn Ruby on Rails', description: 'Learn Ruby on Rails  for God', pages: 999)
+```
+
+เช็คจำนวนหนังสือ
+```
+u1.user_books.count # 0
+u1.books.count # 0 ดูได้จากใน Model ไอ้ books and user_books มัน has_many ไว้
+```
+
+เพิ่มหนังสือ b1 b2 ให้ u1
+```
+u1b1 = UserBook.create(user_id: u1.id, book_id: b1.id)
+u1b2 = UserBook.create(user_id: u1.id, book_id: b2.id)
+```
+
+ให้ u2
+```
+u2b2 = UserBook.create(user_id: u2.id, book_id: b2.id)
+```
+
+หลังจากนี้เช็คจะได้ผลอีกอย่างละ
+```
+u1.books.count # 2
+u1.user_books.count # 2
+u2.user_books.count
+u2.books.count # 1
+```
