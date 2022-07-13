@@ -61,3 +61,27 @@ u1.user_books.count # 2
 u2.user_books.count
 u2.books.count # 1
 ```
+
+
+Mail
+หลังจากเพิ่ม gem "mailgun_rails" ใน Gemfile ให้ไปเพิ่ม Config ด้วย
+ใน env
+```
+config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: 'mail gun api key',
+    domain: 'mailgun domain'
+  }
+```
+
+
+คำสั่งสร้าง Email 
+rails g mailer คือคำสั่งสร้าง mailer ชื่อว่า UserMailer โดยจะสร้าง action ชื่อว่า welcome_email ด้วย
+```
+rails g mailer UserMailer welcome_email
+```
+
+
+gem install ffi --platform=ruby
+
+gem install ffi

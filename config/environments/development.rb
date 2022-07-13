@@ -13,6 +13,13 @@ Rails.application.configure do
     end
   end  
 
+
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: 'f74ee2fc52365173da0e6dca4828761b-18e06deb-123c127f',
+    domain: 'sandbox363dbd2d1d994e338fde847c699560ec.mailgun.org'
+  }
+
   
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
