@@ -82,10 +82,34 @@ rails g mailer UserMailer welcome_email
 ```
 
 
-gem install ffi --platform=ruby
+คำอธิบาย Ruby mail
+<%=  %> Run Ruby code และนำสิ่งที่ Return ออกมา Render
+<% %> Run Ruby code แต่ไม่ Render
 
 gem install ffi
 
 
 
 //
+อีกไฟล์ที่ต้องสนใจเวลาส่งเมลล์คือไฟล์ mailer.text.erb ใน views>layouts
+การ yield จะเป็นการนำทุกๆอย่างที่ถูก render จาก template มาใส่ที่นี่
+
+Test mail
+ser_id: 1 เป็น params ที่ถูกนำไปใช้ใน welcome_email ส่วน .deliver_now เป็นคำสั่งสำหรับ delay job
+ซึ่ง delay job เกิดมาเพื่อสั่งให้ทำอะไรบางอย่าง เมื่อไหร่ก็ได้ตามที่เราต้องการ แต่เนื่องจากเรายังไม่ได้ตั้งค่า delay job
+เราจึงใช้ deliver_now ซึ่งแปลว่าส่งเลยไม่ต้องรอ
+```
+UserMailer.with(user_id: 1).welcome_email.deliver_now
+```
+
+Update column เพื่อเทสส่งเมล
+```
+rails g migration AddEmailToUser mail:text
+```
+
+และไปเพิ่ม model user ด้วย
+```
+def send_welcome_email
+        UserMailer.with(user_id: self.id).welcome_email.deliver_now
+end
+```
